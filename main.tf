@@ -29,7 +29,7 @@ resource "azurerm_storage_account" "minecraft" {
 resource "azurerm_storage_share" "minecraft_world" {
   name = "world"
   storage_account_name = azurerm_storage_account.minecraft.name
-  quota = 50
+  quota = 5
 }
 
 resource "azurerm_storage_share" "minecraft_config" {
@@ -56,6 +56,22 @@ resource "azurerm_container_group" "minecraft" {
     ports {
       port     = 25565
       protocol = "TCP"
+    }
+
+    volume {
+      name = "world"
+      mount_path = "/minecraft/world"
+      storage_account_name = azurerm_storage_account.minecraft.name
+      storage_account_key = azurerm_storage_account.minecraft.primary_access_key
+      share_name = azurerm_storage_share.minecraft_world.name  
+    }
+
+    volume {
+      name = "config"
+      mount_path = "/minecraft/config"
+      storage_account_name = azurerm_storage_account.minecraft.name
+      storage_account_key = azurerm_storage_account.minecraft.primary_access_key
+      share_name = azurerm_storage_share.minecraft_config.name  
     }
 
     environment_variables = {
