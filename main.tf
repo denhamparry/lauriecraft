@@ -3,6 +3,17 @@ provider "azurerm" {
   features {}
 }
 
+terraform {
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "denhamparry"
+
+    workspaces {
+      name = "lauriecraft"
+    }
+  }
+}
+
 resource "random_password" "password" {
   length = 16
   special = true
