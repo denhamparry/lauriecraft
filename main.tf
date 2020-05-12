@@ -15,7 +15,7 @@ resource "azurerm_resource_group" "minecraft" {
 }
 
 resource "azurerm_storage_account" "minecraft" {
-  name                     = "lauriecrafttf"
+  name                     = "lauriecraft"
   resource_group_name      = azurerm_resource_group.minecraft.name
   location                 = azurerm_resource_group.minecraft.location
   account_tier             = "Standard"
@@ -44,7 +44,7 @@ resource "azurerm_container_group" "minecraft" {
   location            = azurerm_resource_group.minecraft.location
   resource_group_name = azurerm_resource_group.minecraft.name
   ip_address_type     = "public"
-  dns_name_label      = "lauriecrafttf"
+  dns_name_label      = "lauriecraft"
   os_type             = "Linux"
 
   container {
